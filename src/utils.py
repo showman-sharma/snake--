@@ -1,10 +1,12 @@
+# utils.py
+
 import pygame
 import random
 import math
+from config import *
 
-# Utility functions
 def draw_grass(screen):
-    screen.fill((34, 139, 34))
+    screen.fill(grass_color)
 
 def draw_brick_fencing(screen, brick_size, shadow_color, brick_color):
     for x in range(0, screen.get_width(), brick_size):
@@ -62,3 +64,16 @@ def draw_wooden_board(screen, wood_texture, msg, color):
     mesg = font.render(msg, True, color)
     text_rect = mesg.get_rect(center=(board_x + board_width // 2, board_y + board_height // 2))
     screen.blit(mesg, text_rect)
+
+def draw_ring(screen, x, y, is_mole_hole=False):
+    if is_mole_hole:
+        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 10, 10)  # Draw the brown ring
+        pygame.draw.circle(screen, (0, 0, 0), (int(x), int(y)), 5)  # Draw the small black dot inside the ring
+    else:
+        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 20, 20)  # Draw the brown ring
+        pygame.draw.circle(screen, (0, 0, 0), (int(x), int(y)), 10)  # Draw the normal black hole
+
+def new_apple_position():
+    foodx = round(random.randrange(brick_size, screen_width - snake_block - brick_size) / 20.0) * 20.0
+    foody = round(random.randrange(brick_size, screen_height - snake_block - brick_size) / 20.0) * 20.0
+    return foodx, foody

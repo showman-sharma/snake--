@@ -1,15 +1,24 @@
+# game.py
+
 import pygame
 import random
-from utils import draw_grass, draw_brick_fencing, draw_apple, message, create_blood_splatter, draw_blood_splatter, draw_wall_holes, draw_wooden_board
+from utils import draw_grass, draw_brick_fencing, draw_apple, message, create_blood_splatter, draw_blood_splatter, draw_wall_holes, draw_wooden_board, draw_ring, new_apple_position
 from snake import draw_snake
 from rat import spawn_rat, move_rats, draw_rat
 from hedgehog import spawn_hedgehog, move_hedgehogs, draw_hedgehog
+from mole import spawn_mole, move_moles, draw_mole
 from config import *
 
 def gameLoop():
-    global rat_spawn_time, hedgehog_spawn_time, snake_speed, blink_start_time, blink_duration, blink_phase
+    global rat_spawn_time, hedgehog_spawn_time, mole_spawn_time, snake_speed, blink_start_time, blink_duration, blink_phase
     game_over = False
     game_close = False
+
+    # Pygame initialization
+    pygame.init()
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption('3D Look Snake Game')
+    clock = pygame.time.Clock()
 
     x1 = screen_width / 2
     y1 = screen_height / 2
@@ -20,8 +29,23 @@ def gameLoop():
     snake_list = []
     length_of_snake = 1
 
-    foodx = round(random.randrange(brick_size, screen_width - snake_block - brick_size) / 20.0) * 20.0
-    foody = round(random.randrange(brick_size, screen_height - snake_block - brick_size) / 20.0) * 20.0
+    holes = []
+    blood_splatters = []
+
+    rats = []
+    hedgehogs = []
+    moles = []
+
+    rat_spawn_time = pygame.time.get_ticks()
+    hedgehog_spawn_time = pygame.time.get_ticks()
+    mole_spawn_time = pygame.time.get_ticks()
+
+    blink_start_time = None
+    blink_duration = 0
+    blink_phase = 0
+    snake_speed = snake_normal_speed
+    
+    foodx, foody = new_apple_position()
 
     while not game_over:
 
@@ -69,6 +93,11 @@ def gameLoop():
 
         draw_grass(screen)
         draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
+
+        # Draw rings where moles have spawned or exited
+        for hole in holes:
+            draw_ring(screen, hole[0], hole[1], is_mole_hole=True)
+
         draw_blood_splatter(screen, blood_splatters)  # Draw blood splatters before other objects
         draw_wall_holes(screen, holes)
         draw_apple(screen, foodx, foody, shadow_color, apple_color, leaf_color)
@@ -120,6 +149,21 @@ def gameLoop():
                 hedgehogs.remove(hedgehog)
                 buzzer_sound.play()  # Play warning buzzer sound when the snake eats a hedgehog
 
+        # Handle moles
+        if pygame.time.get_ticks() - mole_spawn_time > 15000:  # Spawn a mole every 15 seconds
+            spawn_mole(screen_width, screen_height, brick_size, moles, holes)
+            mole_spawn_time = pygame.time.get_ticks()
+
+        move_moles(moles, foodx, foody, holes, lambda: new_apple_position())
+
+        for mole in moles:
+            draw_mole(screen, mole, shadow_color, eye_color, pupil_color, mole_color, mole_snout_color, mole_nose_color)
+            if abs(mole['x'] - x1) < snake_block and abs(mole['y'] - y1) < snake_block:
+                length_of_snake += 1
+                create_blood_splatter(mole['x'], mole['y'], blood_splatters)  # Add blood splatter
+                moles.remove(mole)
+                mole_squeak_sound.play()  # Play mole squeak sound when the snake eats a mole
+
         snake_head = []
         snake_head.append(x1)
         snake_head.append(y1)
@@ -137,8 +181,7 @@ def gameLoop():
         pygame.display.update()
 
         if abs(x1 - foodx) < snake_block and abs(y1 - foody) < snake_block:
-            foodx = round(random.randrange(brick_size, screen_width - snake_block - brick_size) / 20.0) * 20.0
-            foody = round(random.randrange(brick_size, screen_height - snake_block - brick_size) / 20.0) * 20.0
+            foodx, foody = new_apple_position()
             length_of_snake += 1
             crunch_sound.play()  # Play crunch sound when the snake eats an apple
 
