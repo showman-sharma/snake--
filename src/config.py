@@ -47,6 +47,16 @@ buzzer_sound = pygame.mixer.Sound("assets/sounds/buzzer.mp3")
 snake_slither_sound = ("assets/sounds/snake_slither.mp3")
 welcome_music = ("assets/sounds/welcome_music.mp3")
 
+# Set volume levels
+crunch_sound.set_volume(1) 
+rat_squish_sound.set_volume(1)
+snake_squish_sound.set_volume(1)
+rat_squeak_sound.set_volume(1) 
+hedgehog_squeak_sound.set_volume(1)
+snake_crunch_sound.set_volume(1)
+mole_squeak_sound.set_volume(1)
+buzzer_sound.set_volume(1)
+
 # Blink settings for hedgehogs
 blink_interval = 250  # milliseconds
 blink_colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]  # Red, Green, Blue

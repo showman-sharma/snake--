@@ -63,6 +63,7 @@ def gameLoop():
 
     # Start playing the slither sound in a loop
     pygame.mixer.music.load(snake_slither_sound)
+    pygame.mixer.music.set_volume(0.3)  # Set volume to 30%
     pygame.mixer.music.play(-1)  # -1 means the music will loop indefinitely
 
     while not game_over:
