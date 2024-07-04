@@ -122,7 +122,6 @@ This file contains functions for spawning, moving, and drawing moles, as well as
 
 - Add more obstacles and power-ups.
 - Implement different game levels with increasing difficulty.
-- Add a high score feature.
 
 ## Contributing
 
