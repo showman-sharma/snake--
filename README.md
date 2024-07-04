@@ -44,7 +44,7 @@ snake_game/
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/yourusername/snake_game.git
+   git clone https://github.com/showman-sharma/snake_plus.git
    cd snake_game
    ```
 
@@ -116,8 +116,4 @@ If you would like to contribute to this project, please fork the repository and 
 
 ## License
 
-This project is licensed under the MIT License.
-
----
-
-Feel free to customize this README file further as per your requirements.
+This project is licensed under the Apache 2.0 License.
