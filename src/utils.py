@@ -4,6 +4,8 @@ import pygame
 import random
 import math
 from config import *
+import csv
+import os
 
 def draw_grass(screen):
     screen.fill(grass_color)
@@ -62,7 +64,7 @@ def draw_wooden_board(screen, wood_texture, msg, color):
     # Draw the message on the wooden board
     font = pygame.font.SysFont(None, 30)
     mesg = font.render(msg, True, color)
-    text_rect = mesg.get_rect(center=(board_x + board_width // 2, board_y + board_height // 2))
+    text_rect = mesg.get_rect(center=(board_x + board_width // 2, board_y + board_height // 2-30))
     screen.blit(mesg, text_rect)
 
 def draw_ring(screen, x, y, is_mole_hole=False):
@@ -77,3 +79,75 @@ def new_apple_position():
     foodx = round(random.randrange(brick_size, screen_width - snake_block - brick_size) / 20.0) * 20.0
     foody = round(random.randrange(brick_size, screen_height - snake_block - brick_size) / 20.0) * 20.0
     return foodx, foody
+
+def get_high_scores(file_name):
+    if not os.path.exists(file_name):
+        return []
+    with open(file_name, mode='r') as file:
+        reader = csv.reader(file)
+        return sorted(reader, key=lambda x: int(x[1]), reverse=True)
+
+def save_score(file_name, name, score):
+    with open(file_name, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([name, score])
+
+def get_user_name(screen, wood_texture):
+    input_box = pygame.Rect(0, 0, 140, 32)  # Initialize with zero position
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    text = ''
+    font = pygame.font.Font(None, 32)
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                else:
+                    active = False
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        return text
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
+
+        draw_grass(screen)
+        draw_wooden_board(screen, wood_texture, "", (255, 0, 0))
+
+        txt_surface = font.render(text, True, pygame.Color('black'))  # Render the text in black
+        width = max(200, txt_surface.get_width() + 10)
+        input_box.w = width
+        input_box.x = (screen.get_width() - input_box.w) // 2  # Center the input box horizontally
+        input_box.y = screen.get_height() // 2  # Center the input box vertically
+
+        # Render the "Enter Your Name" message above the input box
+        msg_font = pygame.font.Font(None, 50)
+        msg_surface = msg_font.render("Enter Your Name:", True, (255, 0, 0))
+        msg_x = (screen.get_width() - msg_surface.get_width()) // 2
+        msg_y = input_box.y - 50  # Position the message above the input box
+
+        # Draw the message and input box with white background
+        screen.blit(msg_surface, (msg_x, msg_y))
+        screen.fill((255, 255, 255), input_box)
+        screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+        pygame.draw.rect(screen, color, input_box, 2)
+        pygame.display.flip()
+
+def draw_buttons(screen, button_continue, button_quit):
+    pygame.draw.rect(screen, (0, 255, 0), button_continue)
+    pygame.draw.rect(screen, (255, 0, 0), button_quit)
+    font = pygame.font.Font(None, 35)
+    text_continue = font.render('Replay', True, (0, 0, 0))
+    text_quit = font.render('Quit', True, (0, 0, 0))
+    screen.blit(text_continue, (button_continue.x + 10, button_continue.y + 5))
+    screen.blit(text_quit, (button_quit.x + 25, button_quit.y + 5))

@@ -2,23 +2,31 @@
 
 import pygame
 import random
-from utils import draw_grass, draw_brick_fencing, draw_apple, message, create_blood_splatter, draw_blood_splatter, draw_wall_holes, draw_wooden_board, draw_ring, new_apple_position
+from utils import * #draw_grass, draw_brick_fencing, draw_apple, message, create_blood_splatter, draw_blood_splatter, draw_wall_holes, draw_wooden_board, draw_ring, new_apple_position
 from snake import draw_snake
 from rat import spawn_rat, move_rats, draw_rat
 from hedgehog import spawn_hedgehog, move_hedgehogs, draw_hedgehog
 from mole import spawn_mole, move_moles, draw_mole
 from config import *
 
+
 def gameLoop():
     global rat_spawn_time, hedgehog_spawn_time, mole_spawn_time, snake_speed, blink_start_time, blink_duration, blink_phase
     game_over = False
     game_close = False
+
+    
 
     # Pygame initialization
     pygame.init()
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption('3D Look Snake Game')
     clock = pygame.time.Clock()
+
+    user_name = get_user_name(screen, wood_texture)
+    
+    high_scores = get_high_scores('high_scores.csv')
+    high_score = int(high_scores[0][1]) if high_scores else 0
 
     x1 = screen_width / 2
     y1 = screen_height / 2
@@ -36,6 +44,8 @@ def gameLoop():
     hedgehogs = []
     moles = []
 
+    score = 0
+
     rat_spawn_time = pygame.time.get_ticks()
     hedgehog_spawn_time = pygame.time.get_ticks()
     mole_spawn_time = pygame.time.get_ticks()
@@ -46,6 +56,9 @@ def gameLoop():
     snake_speed = snake_normal_speed
     
     foodx, foody = new_apple_position()
+    button_continue = pygame.Rect(screen_width // 2 - 150, screen_height // 2 + 30, 120, 40)
+    button_quit = pygame.Rect(screen_width // 2 + 30, screen_height // 2 + 30, 120, 40)
+
 
     while not game_over:
 
@@ -54,8 +67,12 @@ def gameLoop():
             draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
             draw_blood_splatter(screen, blood_splatters)
             draw_wall_holes(screen, holes)
-            draw_wooden_board(screen, wood_texture, "You Lost! Press Q-Quit or C-Play Again", (255, 0, 0))
+            # draw_wooden_board(screen, wood_texture, "You Lost! Press Q-Quit or C-Play Again", (255, 0, 0))
+            draw_wooden_board(screen, wood_texture, f"SCORE : {score}", (255, 0, 0))
+            draw_buttons(screen, button_continue, button_quit)
             pygame.display.update()
+
+            save_score('high_scores.csv', user_name, score)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -64,6 +81,16 @@ def gameLoop():
                         game_close = False
                     if event.key == pygame.K_c:
                         gameLoop()
+            # for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_over = True
+                    game_close = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if button_continue.collidepoint(event.pos):
+                        gameLoop()
+                    if button_quit.collidepoint(event.pos):
+                        game_over = True
+                        game_close = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -81,6 +108,7 @@ def gameLoop():
                 elif event.key == pygame.K_DOWN:
                     y1_change = snake_block
                     x1_change = 0
+                    
 
         x1 += x1_change
         y1 += y1_change
@@ -94,6 +122,13 @@ def gameLoop():
         draw_grass(screen)
         draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
 
+        # Draw score and high score
+        font = pygame.font.SysFont(None, 35)
+        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+        high_score_text = font.render(f"High Score: {high_score}", True, (255, 255, 255))
+        screen.blit(score_text, [10+ brick_size, 10+brick_size])
+        screen.blit(high_score_text, [10+brick_size, 40+brick_size])
+        
         # Draw rings where moles have spawned or exited
         for hole in holes:
             draw_ring(screen, hole[0], hole[1], is_mole_hole=True)
@@ -113,6 +148,7 @@ def gameLoop():
             draw_rat(screen, rat, snake_block, shadow_color, eye_color, pupil_color, fang_color, rat_color)
             if abs(rat['x'] - x1) < snake_block and abs(rat['y'] - y1) < snake_block:
                 length_of_snake += 2
+                score += 2
                 create_blood_splatter(rat['x'], rat['y'], blood_splatters)  # Add blood splatter
                 rats.remove(rat)
                 rat_squish_sound.play()  # Play rat squish sound when the snake eats a rat
@@ -160,6 +196,7 @@ def gameLoop():
             draw_mole(screen, mole, shadow_color, eye_color, pupil_color, mole_color, mole_snout_color, mole_nose_color)
             if abs(mole['x'] - x1) < snake_block and abs(mole['y'] - y1) < snake_block:
                 length_of_snake += 1
+
                 create_blood_splatter(mole['x'], mole['y'], blood_splatters)  # Add blood splatter
                 moles.remove(mole)
                 mole_squeak_sound.play()  # Play mole squeak sound when the snake eats a mole
@@ -189,6 +226,7 @@ def gameLoop():
         if abs(x1 - foodx) < snake_block and abs(y1 - foody) < snake_block:
             foodx, foody = new_apple_position()
             length_of_snake += 1
+            score += 1
             crunch_sound.play()  # Play crunch sound when the snake eats an apple
 
         clock.tick(snake_speed)
