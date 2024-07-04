@@ -1,5 +1,4 @@
-# 3D Look Snake Game with Detailed Rats, Hedgehogs, and Moles
-
+# SNAKE++
 ## Overview
 
 This project is a modern take on the classic Snake game, featuring 3D-looking snakes, detailed rats, hedgehogs, and moles. The game includes additional features such as blood splatter effects, collision detection with walls, and sound effects for various events. The game is developed using Pygame.
