@@ -6,15 +6,15 @@ from config import *
 def spawn_mole(screen_width, screen_height, brick_size, moles, holes):
     x, y = random.randint(brick_size, screen_width - brick_size), random.randint(brick_size, screen_height - brick_size)
     direction = random.choice(['left', 'right', 'up', 'down'])
-    moles.append({'x': x, 'y': y, 'direction': direction, 'target': None})
+    moles.append({'x': x, 'y': y, 'direction': direction})
     holes.append((x, y))
     mole_squeak_sound.play()  # Play mole squeak sound when a mole is spawned
 
 def move_moles(moles, foodx, foody, holes, new_apple_position_callback):
     for mole in moles:
-        if mole['target'] is None:
-            mole['target'] = (foodx, foody)
-        target_x, target_y = mole['target']
+        # if mole['target'] is None:
+        #     mole['target'] = (foodx, foody)
+        target_x, target_y = (foodx, foody)#mole['target']
         if mole['x'] < target_x:
             mole['x'] += mole_speed
         elif mole['x'] > target_x:
@@ -23,12 +23,7 @@ def move_moles(moles, foodx, foody, holes, new_apple_position_callback):
             mole['y'] += mole_speed
         elif mole['y'] > target_y:
             mole['y'] -= mole_speed
-        
-        # Check if mole reaches the apple
-        if abs(mole['x'] - target_x) < 10 and abs(mole['y'] - target_y) < 10:
-            holes.append((mole['x'], mole['y']))
-            moles.remove(mole)
-            new_apple_position_callback()  # Trigger the callback to spawn a new apple
+
 
 def draw_mole(screen, mole, shadow_color, eye_color, pupil_color, mole_color, mole_snout_color, mole_nose_color):
     # Draw shadow

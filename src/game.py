@@ -164,6 +164,12 @@ def gameLoop():
                 moles.remove(mole)
                 mole_squeak_sound.play()  # Play mole squeak sound when the snake eats a mole
 
+            if abs(mole['x'] - foodx) < mole_block and abs(mole['y'] - foody) < mole_block:
+                foodx, foody = new_apple_position()
+                crunch_sound.play()  # Play crunch sound when the mole eats an apple
+                holes.append((mole['x'], mole['y']))
+                moles.remove(mole)
+
         snake_head = []
         snake_head.append(x1)
         snake_head.append(y1)

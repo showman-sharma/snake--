@@ -22,12 +22,14 @@ hole_color = (0, 0, 0)
 mole_color = (139, 69, 19)
 mole_snout_color = (165, 42, 42)
 mole_nose_color = (0, 0, 0)
+ring_color = (0, 204, 102)
 
 # Game settings
 brick_size = 20
 snake_block = 20
+mole_block = 20
 snake_normal_speed = 15
-snake_slow_speed = 11.25  # 75% of normal speed
+snake_slow_speed = 10  
 rat_speed = 11.25  # 75% of normal speed
 hedgehog_speed = 7.5
 mole_speed = 12

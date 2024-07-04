@@ -47,7 +47,7 @@ def draw_blood_splatter(screen, blood_splatters):
 
 def draw_wall_holes(screen, holes):
     for x, y in holes:
-        pygame.draw.circle(screen, (0, 0, 0), (x, y), 10)
+        pygame.draw.circle(screen, (0, 0, 0), (x, y), 5)
 
 def draw_wooden_board(screen, wood_texture, msg, color):
     board_width = 400
@@ -67,10 +67,10 @@ def draw_wooden_board(screen, wood_texture, msg, color):
 
 def draw_ring(screen, x, y, is_mole_hole=False):
     if is_mole_hole:
-        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 10, 10)  # Draw the brown ring
+        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 10)  # Draw the brown ring
         pygame.draw.circle(screen, (0, 0, 0), (int(x), int(y)), 5)  # Draw the small black dot inside the ring
     else:
-        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 20, 20)  # Draw the brown ring
+        pygame.draw.circle(screen, (160, 82, 45), (int(x), int(y)), 20)  # Draw the brown ring
         pygame.draw.circle(screen, (0, 0, 0), (int(x), int(y)), 10)  # Draw the normal black hole
 
 def new_apple_position():
