@@ -218,7 +218,7 @@ def gameLoop():
                 create_blood_splatter(mole['x'], mole['y'], blood_splatters)  # Add blood splatter
                 moles.remove(mole)
                 mole_squeak_sound.play()  # Play mole squeak sound when the snake eats a mole
-
+        for mole in moles:
             if abs(mole['x'] - foodx) < mole_block and abs(mole['y'] - foody) < mole_block:
                 foodx, foody = new_apple_position()
                 crunch_sound.play()  # Play crunch sound when the mole eats an apple
