@@ -1,4 +1,3 @@
-
 # 3D Look Snake Game with Detailed Rats, Hedgehogs, and Moles
 
 ## Overview
@@ -112,6 +111,10 @@ This file contains functions for spawning, moving, and drawing hedgehogs, as wel
 ### `mole.py`
 
 This file contains functions for spawning, moving, and drawing moles, as well as playing the appropriate sound effects when a mole is spawned or eaten.
+
+## Development Process
+
+For a detailed step-by-step development process, please refer to the `DEVELOPMENT.md` file.
 
 ## Future Improvements
 
