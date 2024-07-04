@@ -23,6 +23,8 @@ def gameLoop():
     pygame.display.set_caption('3D Look Snake Game')
     clock = pygame.time.Clock()
 
+    welcome_screen(screen, wood_texture)
+
     user_name = get_user_name(screen, wood_texture)
     
     high_score = get_high_score(high_score_file)
@@ -59,12 +61,15 @@ def gameLoop():
     button_continue = pygame.Rect(screen_width // 2 - 150, screen_height // 2 + 30, 120, 40)
     button_quit = pygame.Rect(screen_width // 2 + 30, screen_height // 2 + 30, 120, 40)
 
+    # Start playing the slither sound in a loop
+    pygame.mixer.music.load(snake_slither_sound)
+    pygame.mixer.music.play(-1)  # -1 means the music will loop indefinitely
 
     while not game_over:
 
         while game_close:
             
-            
+            pygame.mixer.music.stop()  # Stop the slither sound when the game is over
             draw_grass(screen)
             draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
             draw_blood_splatter(screen, blood_splatters)

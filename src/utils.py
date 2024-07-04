@@ -7,6 +7,7 @@ from config import *
 import csv
 import pandas as pd
 import os
+from snake import *
 
 def draw_grass(screen):
     screen.fill(grass_color)
@@ -35,6 +36,90 @@ def message(screen, msg, color):
     font = pygame.font.SysFont(None, 50)
     mesg = font.render(msg, True, color)
     screen.blit(mesg, [screen.get_width() / 6, screen.get_height() / 3])
+
+
+def welcome_screen(screen, wood_texture):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    return
+
+        draw_grass(screen)
+        draw_wooden_board(screen, wood_texture, "", (255, 0, 0))
+
+        # Render the "SNAKE++" message
+        msg_font = pygame.font.Font(None, 100)
+        msg_surface = msg_font.render("SNAKE++", True, (255, 0, 0))
+        msg_x = (screen.get_width() - msg_surface.get_width()) // 2
+        msg_y = screen.get_height() // 4
+        screen.blit(msg_surface, (msg_x, msg_y))
+
+        # Draw the snake with 5 body parts reaching towards an apple
+        snake_list = []
+        snake_start_x = screen.get_width() // 2 - 50
+        snake_start_y = screen.get_height() // 2
+        for i in range(5):
+            snake_list.append((snake_start_x + i * snake_block, snake_start_y))
+
+        draw_snake(screen, snake_list, snake_block, shadow_color, eye_color, pupil_color, fang_color, snake_color)
+        draw_apple(screen, snake_start_x + 5 * snake_block + 20, snake_start_y, shadow_color, apple_color, leaf_color)
+
+        # Render the "Press enter to continue..." message
+        small_font = pygame.font.Font(None, 35)
+        small_msg_surface = small_font.render("Press enter to continue...", True, (255, 255, 255))
+        small_msg_x = (screen.get_width() - small_msg_surface.get_width()) // 2
+        small_msg_y = screen.get_height() // 2 + 50
+        screen.blit(small_msg_surface, (small_msg_x, small_msg_y))
+
+        pygame.display.flip()
+def welcome_screen(screen, wood_texture):
+
+    pygame.mixer.music.load(welcome_music)
+    pygame.mixer.music.play(-1)  # -1 means the music will loop indefinitely
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    return
+
+        draw_grass(screen)
+        draw_wooden_board(screen, wood_texture, "", (255, 0, 0))
+
+        # Render the "SNAKE++" message with shadow
+        msg_font = pygame.font.Font(None, 100)
+        msg_surface_shadow = msg_font.render("SNAKE++", True, (50, 50, 50))  # Shadow color
+        msg_surface = msg_font.render("SNAKE++", True, snake_color)  # Main color
+        msg_x = (screen.get_width() - msg_surface.get_width()) // 2
+        msg_y = screen.get_height() // 3
+        screen.blit(msg_surface_shadow, (msg_x + 4, msg_y + 4))  # Draw shadow
+        screen.blit(msg_surface, (msg_x, msg_y))  # Draw main text
+
+        # Draw the snake with 5 body parts reaching towards an apple
+        snake_list = []
+        snake_start_x = screen.get_width() // 2 - 50
+        snake_start_y = screen.get_height() // 2
+        for i in range(5):
+            snake_list.append((snake_start_x + i * snake_block, snake_start_y))
+
+        draw_snake(screen, snake_list, snake_block, shadow_color, eye_color, pupil_color, fang_color, snake_color)
+        draw_apple(screen, snake_start_x + 5 * snake_block + 20, snake_start_y, shadow_color, apple_color, leaf_color)
+
+        # Render the "Press enter to continue..." message
+        small_font = pygame.font.Font(None, 35)
+        small_msg_surface = small_font.render("Press enter to continue...", True, (255, 255, 255))
+        small_msg_x = (screen.get_width() - small_msg_surface.get_width()) // 2
+        small_msg_y = screen.get_height() // 2 + 50
+        screen.blit(small_msg_surface, (small_msg_x, small_msg_y))
+
+        pygame.display.flip()
 
 def create_blood_splatter(x, y, blood_splatters):
     for _ in range(20):

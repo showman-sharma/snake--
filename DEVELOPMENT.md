@@ -75,7 +75,9 @@ Give the rat a shadow, eyes, ears, 2 tiny teeth, and a thin long wavy tail.
 ## 11. Introducing Holes for Rats
 
 **Prompt:**
-Give the effect of making holes in the walls when the rat enters and exits.
+Give the effect of making holes in
+
+ the walls when the rat enters and exits.
 
 - Added visual effects for rat entries and exits.
 
@@ -121,19 +123,19 @@ Draw a wooden textured board at the center of the screen with a 'You Lost! Press
 
 - Added a visual element to indicate the game over state.
 
-## 18. Score Management with Pandas
+## 18. Background Music and Sound Effects
 
 **Prompt:**
-Implement high score saving and retrieval using pandas.
+Play `welcome_music.mp3` on the welcome screen and `snake_slither.mp3` while the snake is moving.
 
-- Used pandas for efficient handling of high score data in CSV format.
+- Added background music for different game states to enhance the auditory experience.
 
-## 19. Documentation
+## 19. High Score Tracking
 
 **Prompt:**
-Create a detailed README.md for the project.
+Track and display high scores, storing them in a CSV file.
 
-- Provides comprehensive documentation for the project, including an overview, features, installation instructions, gameplay mechanics, code explanation, and future improvements.
+- Added functionality to track high scores, display them on the screen, and save them to a CSV file.
 
 ## Summary
 
@@ -142,7 +144,8 @@ Create a detailed README.md for the project.
 3. **Introduce New Elements:** Add rats, hedgehogs, and moles with specific behaviors and interactions.
 4. **Add Sound Effects:** Enhance the game with sounds for different actions and events.
 5. **Modularize Code:** Split the code into meaningful modules for better structure.
-6. **Score Management:** Implement high score handling using pandas.
-7. **Documentation:** Create comprehensive README and DEVELOPMENT documentation for the project.
+6. **Background Music:** Add background music for the welcome screen and game state.
+7. **High Score Tracking:** Track and display high scores, saving them in a CSV file.
+8. **Documentation:** Create a comprehensive README for the project.
 
 By following these steps and prompts, the game evolved from a simple snake game to a feature-rich, visually appealing, and interactive project.

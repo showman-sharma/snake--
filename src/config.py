@@ -44,6 +44,8 @@ hedgehog_squeak_sound = pygame.mixer.Sound("assets/sounds/hedgehog_squeak.mp3")
 snake_crunch_sound = pygame.mixer.Sound("assets/sounds/snake_crunch.mp3")
 mole_squeak_sound = pygame.mixer.Sound("assets/sounds/mole_squeak.mp3")
 buzzer_sound = pygame.mixer.Sound("assets/sounds/buzzer.mp3") 
+snake_slither_sound = ("assets/sounds/snake_slither.mp3")
+welcome_music = ("assets/sounds/welcome_music.mp3")
 
 # Blink settings for hedgehogs
 blink_interval = 250  # milliseconds

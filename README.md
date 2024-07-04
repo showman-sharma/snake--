@@ -9,15 +9,12 @@ This project is a modern take on the classic Snake game, featuring 3D-looking sn
 - **3D Look Snake**: The snake is rendered with realistic shadows, eyes, and fangs to give a 3D appearance.
 - **Detailed Rats**: Rats randomly emerge from the edges of the walls, can eat the apple, and have shadows, eyes, ears, teeth, and tails. When the snake eats a rat, the rat makes a squeak sound, and blood splatter is generated.
 - **Hedgehogs**: Hedgehogs also emerge from the edges of the walls, and when eaten by the snake, they cause the snake to blink in red and green, slow down for 5 seconds, and generate blood splatter.
-- **Moles**: Moles spawn randomly, move towards the apple to eat it, and leave the screen by digging holes. They have shadows, eyes, hands, and a snout. When the snake eats a mole, blood splatter is generated.
-- **Realistic Shadows and Lighting**: Objects like the snake, rats, hedgehogs, and apples have realistic shadows.
-- **Sound Effects**: Various sound effects for eating apples, rats, crashing into walls, and warnings when eating hedgehogs.
+- **Moles**: Moles spawn randomly on the green surface, move towards the apple to eat it, and create holes when they enter and exit the ground.
+- **Realistic Shadows and Lighting**: Objects like the snake, rats, hedgehogs, moles, and apples have realistic shadows.
+- **Sound Effects**: Various sound effects for eating apples, rats, hedgehogs, and self-collision. Background music for different game states.
 - **Blood Splatter Effects**: Blood splatters are generated when the snake eats a rat, hedgehog, or mole, or crashes into a wall.
 - **Collision Detection**: The snake dies when it collides with the wall or itself, with appropriate sound effects and visual feedback.
-- **Scorecard**: Displays the current score and high score on the top left corner of the screen.
-- **Name Input**: Takes the user's name as input before starting the game.
-- **Save Scores**: Saves names and scores into a CSV file using pandas and uses it to track high scores.
-- **Buttons**: Provides "Replay" and "Quit" buttons when the game is over.
+- **High Score Tracking**: The game tracks and displays high scores, storing them in a CSV file.
 
 ## Directory Structure
 
@@ -30,8 +27,11 @@ snake_game/
 │   │   ├── snake_squish.mp3
 │   │   ├── rat_squeak.mp3
 │   │   ├── hedgehog_squeak.mp3
+│   │   ├── snake_crunch.mp3
 │   │   ├── mole_squeak.mp3
-│   │   └── snake_crunch.mp3
+│   │   ├── buzzer.mp3
+│   │   ├── snake_slither.mp3
+│   │   └── welcome_music.mp3
 │   └── images/
 │       └── wood_texture.png
 ├── data/
@@ -65,8 +65,9 @@ snake_game/
 
 3. **Ensure the assets are in the correct directories:**
 
-   - Place all sound files (`crunch.mp3`, `rat_squish.mp3`, `snake_squish.mp3`, `rat_squeak.mp3`, `hedgehog_squeak.mp3`, `mole_squeak.mp3`, and `snake_crunch.mp3`) in the `assets/sounds/` directory.
+   - Place all sound files (`crunch.mp3`, `rat_squish.mp3`, `snake_squish.mp3`, `rat_squeak.mp3`, `hedgehog_squeak.mp3`, `snake_crunch.mp3`, `mole_squeak.mp3`, `buzzer.mp3`, `snake_slither.mp3`, and `welcome_music.mp3`) in the `assets/sounds/` directory.
    - Place the wood texture image (`wood_texture.png`) in the `assets/images/` directory.
+   - Ensure the `high_scores.csv` file is in the `data/` directory.
 
 ## How to Play
 
@@ -84,26 +85,23 @@ snake_game/
 3. **Additional Game Mechanics:**
    - **Rats**: Rats appear randomly and can eat the apple. If the snake eats a rat, the rat makes a squeak sound, and blood splatter is generated.
    - **Hedgehogs**: Hedgehogs appear randomly, and when eaten by the snake, they cause the snake to blink in red and green, slow down for 5 seconds, and generate blood splatter.
-   - **Moles**: Moles spawn randomly and move towards the apple to eat it. They leave the screen by digging holes. When the snake eats a mole, blood splatter is generated.
+   - **Moles**: Moles spawn randomly, move towards the apple to eat it, and create holes when they enter and exit the ground. Blood splatter is generated when the snake eats a mole.
    - **Blood Splatter**: Blood splatters are generated when the snake eats a rat, hedgehog, or mole, or crashes into a wall.
-   - **Game Over**: The game ends when the snake collides with the wall or itself. A wooden textured board with the score is displayed, and "Replay" and "Quit" buttons appear.
-   - **Scorecard**: Displays the current score and high score on the top left corner of the screen.
-   - **Name Input**: Takes the user's name as input before starting the game.
-   - **Save Scores**: Saves names and scores into a CSV file using pandas and uses it to track high scores.
+   - **Game Over**: The game ends when the snake collides with the wall or itself. A wooden textured board with a "SCORE" message is displayed, and you can press `Replay` to play again or `Quit` to exit.
 
 ## Code Explanation
 
 ### `config.py`
 
-This file contains all the configuration settings, including screen dimensions, colors, game variables, and file paths.
+This file contains all the configuration settings, including screen dimensions, colors, game variables, and sound files.
 
 ### `utils.py`
 
-This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, and the wooden board. It also includes the function `new_apple_position` to generate a new apple position, and functions to handle high scores and user name input using pandas.
+This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, the wooden board, rings, getting the high score, saving the score, and handling the welcome screen and user name input.
 
 ### `game.py`
 
-This is the main game file. It handles the game loop, event handling, drawing objects on the screen, and playing sound effects. It also initializes the Pygame module and sets up the game screen.
+This is the main game file. It handles the game loop, event handling, drawing objects on the screen, playing sound effects, and managing game states.
 
 ### `snake.py`
 
@@ -134,3 +132,4 @@ If you would like to contribute to this project, please fork the repository and 
 ## License
 
 This project is licensed under the Apache 2.0 License.
+
