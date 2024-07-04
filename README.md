@@ -14,6 +14,10 @@ This project is a modern take on the classic Snake game, featuring 3D-looking sn
 - **Sound Effects**: Various sound effects for eating apples, rats, crashing into walls, and warnings when eating hedgehogs.
 - **Blood Splatter Effects**: Blood splatters are generated when the snake eats a rat, hedgehog, or mole, or crashes into a wall.
 - **Collision Detection**: The snake dies when it collides with the wall or itself, with appropriate sound effects and visual feedback.
+- **Scorecard**: Displays the current score and high score on the top left corner of the screen.
+- **Name Input**: Takes the user's name as input before starting the game.
+- **Save Scores**: Saves names and scores into a CSV file and uses it to track high scores.
+- **Buttons**: Provides "Replay" and "Quit" buttons when the game is over.
 
 ## Directory Structure
 
@@ -80,7 +84,10 @@ snake_game/
    - **Hedgehogs**: Hedgehogs appear randomly, and when eaten by the snake, they cause the snake to blink in red and green, slow down for 5 seconds, and generate blood splatter.
    - **Moles**: Moles spawn randomly and move towards the apple to eat it. They leave the screen by digging holes. When the snake eats a mole, blood splatter is generated.
    - **Blood Splatter**: Blood splatters are generated when the snake eats a rat, hedgehog, or mole, or crashes into a wall.
-   - **Game Over**: The game ends when the snake collides with the wall or itself. A wooden textured board with a "You Lost!" message is displayed, and you can press `Q` to quit or `C` to play again.
+   - **Game Over**: The game ends when the snake collides with the wall or itself. A wooden textured board with the score is displayed, and "Replay" and "Quit" buttons appear.
+   - **Scorecard**: Displays the current score and high score on the top left corner of the screen.
+   - **Name Input**: Takes the user's name as input before starting the game.
+   - **Save Scores**: Saves names and scores into a CSV file and uses it to track high scores.
 
 ## Code Explanation
 
@@ -90,7 +97,7 @@ This file contains all the configuration settings, including screen dimensions, 
 
 ### `utils.py`
 
-This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, and the wooden board. It also includes the function `new_apple_position` to generate a new apple position.
+This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, and the wooden board. It also includes the function `new_apple_position` to generate a new apple position, and functions to handle high scores and user name input.
 
 ### `game.py`
 
@@ -111,10 +118,6 @@ This file contains functions for spawning, moving, and drawing hedgehogs, as wel
 ### `mole.py`
 
 This file contains functions for spawning, moving, and drawing moles, as well as playing the appropriate sound effects when a mole is spawned or eaten.
-
-## Development Process
-
-For a detailed step-by-step development process, please refer to the `DEVELOPMENT.md` file.
 
 ## Future Improvements
 
