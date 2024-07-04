@@ -25,8 +25,8 @@ def gameLoop():
 
     user_name = get_user_name(screen, wood_texture)
     
-    high_scores = get_high_scores('high_scores.csv')
-    high_score = int(high_scores[0][1]) if high_scores else 0
+    high_score = get_high_score(high_score_file)
+    # high_score = int(high_scores[0][1]) if high_scores else 0
 
     x1 = screen_width / 2
     y1 = screen_height / 2
@@ -63,6 +63,8 @@ def gameLoop():
     while not game_over:
 
         while game_close:
+            
+            
             draw_grass(screen)
             draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
             draw_blood_splatter(screen, blood_splatters)
@@ -72,25 +74,35 @@ def gameLoop():
             draw_buttons(screen, button_continue, button_quit)
             pygame.display.update()
 
-            save_score('high_scores.csv', user_name, score)
+            
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         game_over = True
                         game_close = False
-                    if event.key == pygame.K_c:
+                        save_score(user_name, score, high_score_file=high_score_file)
+                        high_score = get_high_score(high_score_file)
+                    if event.key == pygame.K_r:
+                        save_score(user_name, score, high_score_file=high_score_file)
+                        high_score = get_high_score(high_score_file)
                         gameLoop()
             # for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_over = True
                     game_close = False
+                    save_score(user_name, score, high_score_file=high_score_file)
+                    high_score = get_high_score(high_score_file)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_continue.collidepoint(event.pos):
+                        save_score(user_name, score, high_score_file=high_score_file)
+                        high_score = get_high_score(high_score_file)
                         gameLoop()
                     if button_quit.collidepoint(event.pos):
                         game_over = True
                         game_close = False
+                        save_score(user_name, score, high_score_file=high_score_file)
+                        high_score = get_high_score(high_score_file)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -125,7 +137,7 @@ def gameLoop():
         # Draw score and high score
         font = pygame.font.SysFont(None, 35)
         score_text = font.render(f"Score: {score}", True, (255, 255, 255))
-        high_score_text = font.render(f"High Score: {high_score}", True, (255, 255, 255))
+        high_score_text = font.render(f"High Score: {max(score,high_score)}", True, (255, 255, 255))
         screen.blit(score_text, [10+ brick_size, 10+brick_size])
         screen.blit(high_score_text, [10+brick_size, 40+brick_size])
         
@@ -230,7 +242,7 @@ def gameLoop():
             crunch_sound.play()  # Play crunch sound when the snake eats an apple
 
         clock.tick(snake_speed)
-
+    
     pygame.quit()
     quit()
 

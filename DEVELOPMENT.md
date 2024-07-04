@@ -1,6 +1,6 @@
 # Development Process for 3D Look Snake Game
 
-The project was created by sequential prompt engineering on ChatGPT 4o. This document outlines the step-by-step development process for creating the 3D Look Snake Game, featuring detailed rats, hedgehogs, and moles.
+The project was created by sequential prompt engineering on ChatGPT 4.0, with some minor human intervention and changes. This document outlines the step-by-step prompting and development process for creating the 3D Look Snake Game, featuring detailed rats, hedgehogs, and moles.
 
 ## 1. Initial Snake Game Creation
 
@@ -121,7 +121,14 @@ Draw a wooden textured board at the center of the screen with a 'You Lost! Press
 
 - Added a visual element to indicate the game over state.
 
-## 18. Documentation
+## 18. Score Management with Pandas
+
+**Prompt:**
+Implement high score saving and retrieval using pandas.
+
+- Used pandas for efficient handling of high score data in CSV format.
+
+## 19. Documentation
 
 **Prompt:**
 Create a detailed README.md for the project.
@@ -135,6 +142,7 @@ Create a detailed README.md for the project.
 3. **Introduce New Elements:** Add rats, hedgehogs, and moles with specific behaviors and interactions.
 4. **Add Sound Effects:** Enhance the game with sounds for different actions and events.
 5. **Modularize Code:** Split the code into meaningful modules for better structure.
-6. **Documentation:** Create a comprehensive README for the project.
+6. **Score Management:** Implement high score handling using pandas.
+7. **Documentation:** Create comprehensive README and DEVELOPMENT documentation for the project.
 
 By following these steps and prompts, the game evolved from a simple snake game to a feature-rich, visually appealing, and interactive project.

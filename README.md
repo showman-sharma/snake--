@@ -16,7 +16,7 @@ This project is a modern take on the classic Snake game, featuring 3D-looking sn
 - **Collision Detection**: The snake dies when it collides with the wall or itself, with appropriate sound effects and visual feedback.
 - **Scorecard**: Displays the current score and high score on the top left corner of the screen.
 - **Name Input**: Takes the user's name as input before starting the game.
-- **Save Scores**: Saves names and scores into a CSV file and uses it to track high scores.
+- **Save Scores**: Saves names and scores into a CSV file using pandas and uses it to track high scores.
 - **Buttons**: Provides "Replay" and "Quit" buttons when the game is over.
 
 ## Directory Structure
@@ -34,6 +34,8 @@ snake_game/
 │   │   └── snake_crunch.mp3
 │   └── images/
 │       └── wood_texture.png
+├── data/
+│   └── high_scores.csv
 ├── src/
 │   ├── __init__.py
 │   ├── config.py
@@ -58,7 +60,7 @@ snake_game/
 2. **Install the required dependencies:**
 
    ```sh
-   pip install pygame
+   pip install pygame pandas
    ```
 
 3. **Ensure the assets are in the correct directories:**
@@ -87,17 +89,17 @@ snake_game/
    - **Game Over**: The game ends when the snake collides with the wall or itself. A wooden textured board with the score is displayed, and "Replay" and "Quit" buttons appear.
    - **Scorecard**: Displays the current score and high score on the top left corner of the screen.
    - **Name Input**: Takes the user's name as input before starting the game.
-   - **Save Scores**: Saves names and scores into a CSV file and uses it to track high scores.
+   - **Save Scores**: Saves names and scores into a CSV file using pandas and uses it to track high scores.
 
 ## Code Explanation
 
 ### `config.py`
 
-This file contains all the configuration settings, including screen dimensions, colors, game variables, and sound files.
+This file contains all the configuration settings, including screen dimensions, colors, game variables, and file paths.
 
 ### `utils.py`
 
-This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, and the wooden board. It also includes the function `new_apple_position` to generate a new apple position, and functions to handle high scores and user name input.
+This file contains utility functions for drawing the grass, brick fencing, apple, blood splatter, wall holes, and the wooden board. It also includes the function `new_apple_position` to generate a new apple position, and functions to handle high scores and user name input using pandas.
 
 ### `game.py`
 

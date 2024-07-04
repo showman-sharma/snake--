@@ -5,6 +5,7 @@ import random
 import math
 from config import *
 import csv
+import pandas as pd
 import os
 
 def draw_grass(screen):
@@ -80,17 +81,25 @@ def new_apple_position():
     foody = round(random.randrange(brick_size, screen_height - snake_block - brick_size) / 20.0) * 20.0
     return foodx, foody
 
-def get_high_scores(file_name):
-    if not os.path.exists(file_name):
-        return []
-    with open(file_name, mode='r') as file:
-        reader = csv.reader(file)
-        return sorted(reader, key=lambda x: int(x[1]), reverse=True)
+def get_high_score(high_score_file=high_score_file):
+    if not os.path.exists(high_score_file):
+        return 0
+    try:
+        df = pd.read_csv(high_score_file)
+        return df['score'].max()
+    except Exception as e:
+        print(f"Error reading high score file: {e}")
+        return 0
 
-def save_score(file_name, name, score):
-    with open(file_name, mode='a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([name, score])
+def save_score(name, score, high_score_file=high_score_file):
+    if not os.path.exists(high_score_file):
+        df = pd.DataFrame(columns=['name', 'score'])
+    else:
+        df = pd.read_csv(high_score_file)
+
+    new_entry = pd.DataFrame([[name, score]], columns=['name', 'score'])
+    df = pd.concat([df, new_entry], ignore_index=True)
+    df.to_csv(high_score_file, index=False)
 
 def get_user_name(screen, wood_texture):
     input_box = pygame.Rect(0, 0, 140, 32)  # Initialize with zero position

@@ -51,3 +51,6 @@ blink_colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]  # Red, Green, Blue
 
 # Load images
 wood_texture = pygame.image.load("assets/images/wood_texture.png")
+
+# Score sheet
+high_score_file = 'data/high_scores.csv'
