@@ -1,6 +1,6 @@
-# Development Process for 3D Look Snake Game
+# Development Process for SNAKE++
 
-The project was created by sequential prompt engineering on ChatGPT 4.0, with some minor human intervention and changes. This document outlines the step-by-step prompting and development process for creating the 3D Look Snake Game, featuring detailed rats, hedgehogs, and moles.
+The project was created by sequential prompt engineering on ChatGPT 4.0, with some minor human intervention and changes. This document outlines the step-by-step prompting and development process for creating SNAKE++, featuring detailed rats, hedgehogs, and moles.
 
 ## 1. Initial Snake Game Creation
 
@@ -75,9 +75,7 @@ Give the rat a shadow, eyes, ears, 2 tiny teeth, and a thin long wavy tail.
 ## 11. Introducing Holes for Rats
 
 **Prompt:**
-Give the effect of making holes in
-
- the walls when the rat enters and exits.
+Give the effect of making holes in the walls when the rat enters and exits.
 
 - Added visual effects for rat entries and exits.
 
@@ -123,19 +121,26 @@ Draw a wooden textured board at the center of the screen with a 'You Lost! Press
 
 - Added a visual element to indicate the game over state.
 
-## 18. Background Music and Sound Effects
+## 18. High Score Tracking
 
 **Prompt:**
-Play `welcome_music.mp3` on the welcome screen and `snake_slither.mp3` while the snake is moving.
+Add high score tracking by saving names and scores into a CSV file and displaying high scores on the screen.
 
-- Added background music for different game states to enhance the auditory experience.
+- Implemented high score tracking and display.
 
-## 19. High Score Tracking
+## 19. User Input for Name
 
 **Prompt:**
-Track and display high scores, storing them in a CSV file.
+Before the game begins, on the wooden_texture board, take the user name as input.
 
-- Added functionality to track high scores, display them on the screen, and save them to a CSV file.
+- Added functionality to capture the user's name before starting the game.
+
+## 20. Instruction Screen
+
+**Prompt:**
+Create an instruction screen that explains the game mechanics and controls.
+
+- Implemented an instruction screen with detailed descriptions and images of the game elements.
 
 ## Summary
 
@@ -144,8 +149,8 @@ Track and display high scores, storing them in a CSV file.
 3. **Introduce New Elements:** Add rats, hedgehogs, and moles with specific behaviors and interactions.
 4. **Add Sound Effects:** Enhance the game with sounds for different actions and events.
 5. **Modularize Code:** Split the code into meaningful modules for better structure.
-6. **Background Music:** Add background music for the welcome screen and game state.
-7. **High Score Tracking:** Track and display high scores, saving them in a CSV file.
+6. **Add High Score Tracking:** Implement high score tracking and display.
+7. **User Input and Instructions:** Add user input for the name and create an instruction screen.
 8. **Documentation:** Create a comprehensive README for the project.
 
 By following these steps and prompts, the game evolved from a simple snake game to a feature-rich, visually appealing, and interactive project.

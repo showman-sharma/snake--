@@ -10,7 +10,7 @@ from mole import spawn_mole, move_moles, draw_mole
 from config import *
 
 
-def gameLoop():
+def gameLoop(username):
     global rat_spawn_time, hedgehog_spawn_time, mole_spawn_time, snake_speed, blink_start_time, blink_duration, blink_phase
     game_over = False
     game_close = False
@@ -19,13 +19,9 @@ def gameLoop():
 
     # Pygame initialization
     pygame.init()
-    screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption('3D Look Snake Game')
     clock = pygame.time.Clock()
 
-    welcome_screen(screen, wood_texture)
-
-    user_name = get_user_name(screen, wood_texture)
     
     high_score = get_high_score(high_score_file)
     # high_score = int(high_scores[0][1]) if high_scores else 0
@@ -92,7 +88,7 @@ def gameLoop():
                     if event.key == pygame.K_r:
                         save_score(user_name, score, high_score_file=high_score_file)
                         high_score = get_high_score(high_score_file)
-                        gameLoop()
+                        gameLoop(user_name)
             # for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_over = True
@@ -103,7 +99,7 @@ def gameLoop():
                     if button_continue.collidepoint(event.pos):
                         save_score(user_name, score, high_score_file=high_score_file)
                         high_score = get_high_score(high_score_file)
-                        gameLoop()
+                        gameLoop(user_name)
                     if button_quit.collidepoint(event.pos):
                         game_over = True
                         game_close = False
@@ -165,7 +161,7 @@ def gameLoop():
         for rat in rats:
             draw_rat(screen, rat, snake_block, shadow_color, eye_color, pupil_color, fang_color, rat_color)
             if abs(rat['x'] - x1) < snake_block and abs(rat['y'] - y1) < snake_block:
-                length_of_snake += 2
+                length_of_snake += 1
                 score += 2
                 create_blood_splatter(rat['x'], rat['y'], blood_splatters)  # Add blood splatter
                 rats.remove(rat)
@@ -214,7 +210,7 @@ def gameLoop():
             draw_mole(screen, mole, shadow_color, eye_color, pupil_color, mole_color, mole_snout_color, mole_nose_color)
             if abs(mole['x'] - x1) < snake_block and abs(mole['y'] - y1) < snake_block:
                 length_of_snake += 1
-
+                score += 3
                 create_blood_splatter(mole['x'], mole['y'], blood_splatters)  # Add blood splatter
                 moles.remove(mole)
                 mole_squeak_sound.play()  # Play mole squeak sound when the snake eats a mole
@@ -254,4 +250,8 @@ def gameLoop():
 
 if __name__ == "__main__":
     pygame.font.init()  # Initialize the font module
-    gameLoop()
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    welcome_screen(screen, wood_texture)
+    instruction_screen(screen)
+    user_name = get_user_name(screen, wood_texture)
+    gameLoop(user_name)
