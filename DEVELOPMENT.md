@@ -117,7 +117,7 @@ Play rat_squeak.mp3 when a rat is spawned, and hedgehog_squeak.mp3 when a hedgeh
 ## 17. Visual Feedback on Death
 
 **Prompt:**
-Draw a wooden textured board at the center of the screen with a 'You Lost! Press Q-Quit or C-Play Again' message when the snake dies.
+Draw a wooden textured board at the center of the screen with a 'You Lost! Press Enter to replay or Esc to quit' message when the snake dies.
 
 - Added a visual element to indicate the game over state.
 
@@ -142,6 +142,13 @@ Create an instruction screen that explains the game mechanics and controls.
 
 - Implemented an instruction screen with detailed descriptions and images of the game elements.
 
+## 21. Difficulty Level Selection
+
+**Prompt:**
+Add a difficulty level selection screen after the user name screen. Easy, medium, difficult. On easy, everything is at 50% speed. On medium, 75% speed. On difficult, 100% speed. On the wooden board, just like user name screen, Add text "SELECT DIFFICULTY" And then below it, Give 3 buttons (easy, medium, difficult) in a horizontal arrangement, and proceed to game once selected. Easy button is green. Medium is yellow. Difficult is red.
+
+- Implemented a difficulty selection screen to set game speed based on the chosen difficulty level.
+
 ## Summary
 
 1. **Initialize Project:** Create a basic snake game.
@@ -150,7 +157,7 @@ Create an instruction screen that explains the game mechanics and controls.
 4. **Add Sound Effects:** Enhance the game with sounds for different actions and events.
 5. **Modularize Code:** Split the code into meaningful modules for better structure.
 6. **Add High Score Tracking:** Implement high score tracking and display.
-7. **User Input and Instructions:** Add user input for the name and create an instruction screen.
+7. **User Input and Instructions:** Add user input for the name, create an instruction screen, and implement difficulty level selection.
 8. **Documentation:** Create a comprehensive README for the project.
 
 By following these steps and prompts, the game evolved from a simple snake game to a feature-rich, visually appealing, and interactive project.

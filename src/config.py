@@ -34,6 +34,17 @@ rat_speed = 11.25  # 75% of normal speed
 hedgehog_speed = 7.5
 mole_speed = 12
 
+snake_normal_speed_full = 15
+snake_slow_speed_full = 10  
+rat_speed_full = 11.25  # 75% of normal speed
+hedgehog_speed_full = 7.5
+mole_speed_full = 12
+
+# Difficulty levels
+easy_speed_fraction = 0.5
+medium_speed_fraction = 0.75
+hard_speed_fraction = 1.0
+
 # Sounds
 pygame.mixer.init()
 crunch_sound = pygame.mixer.Sound("assets/sounds/crunch.mp3")

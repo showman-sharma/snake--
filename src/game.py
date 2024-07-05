@@ -10,7 +10,7 @@ from mole import spawn_mole, move_moles, draw_mole
 from config import *
 
 
-def gameLoop(username):
+def gameLoop(user_name):
     global rat_spawn_time, hedgehog_spawn_time, mole_spawn_time, snake_speed, blink_start_time, blink_duration, blink_phase
     game_over = False
     game_close = False
@@ -21,6 +21,13 @@ def gameLoop(username):
     pygame.init()
     pygame.display.set_caption('3D Look Snake Game')
     clock = pygame.time.Clock()
+    difficulty = difficulty_screen(screen, wood_texture)
+
+    snake_normal_speed = difficulty*snake_normal_speed_full
+    snake_slow_speed = difficulty * snake_slow_speed_full
+    rat_speed = difficulty * rat_speed_full  
+    hedgehog_speed = difficulty*hedgehog_speed_full
+    mole_speed = difficulty*mole_speed_full
 
     
     high_score = get_high_score(high_score_file)
@@ -204,7 +211,7 @@ def gameLoop(username):
             spawn_mole(screen_width, screen_height, brick_size, moles, holes)
             mole_spawn_time = pygame.time.get_ticks()
 
-        move_moles(moles, foodx, foody, holes, lambda: new_apple_position())
+        move_moles(moles, foodx, foody, holes, lambda: new_apple_position(), mole_speed)
 
         for mole in moles:
             draw_mole(screen, mole, shadow_color, eye_color, pupil_color, mole_color, mole_snout_color, mole_nose_color)

@@ -13,6 +13,7 @@ This project is a modern take on the classic Snake game, featuring 3D-looking sn
 - **Blood Splatter Effects**: Blood splatters are generated when the snake eats a rat or hedgehog, or crashes into a wall.
 - **Collision Detection**: The snake dies when it collides with the wall or itself, with appropriate sound effects and visual feedback.
 - **High Score Tracking**: High scores are saved and displayed.
+- **Difficulty Levels**: Choose between Easy, Medium, and Difficult levels, affecting the speed of the game.
 
 ## Directory Structure
 
@@ -73,10 +74,12 @@ snake_plus_plus/
    python src/game.py
    ```
 
-2. **Controls:**
-   - Use the arrow keys to move the snake.
-   - The objective is to eat the apples to grow the snake.
-   - Avoid running into the walls or the snake itself.
+2. **Gameplay:**
+   - **Welcome Screen**: The game starts with a welcome screen. Press Enter to continue.
+   - **User Name**: Enter your name on the wooden board and press Enter.
+   - **Select Difficulty**: Choose between Easy, Medium, and Difficult levels. This affects the speed of the game.
+   - **Instructions**: The game provides instructions on controls and game mechanics.
+   - **Controls**: Use the arrow keys to move the snake. The objective is to eat the apples to grow the snake. Avoid running into the walls or the snake itself.
 
 3. **Game Mechanics:**
    - **Rats**: Rats appear randomly and can eat the apple. If the snake eats a rat, the rat makes a squeak sound, and blood splatter is generated.

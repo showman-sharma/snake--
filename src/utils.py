@@ -241,6 +241,47 @@ def get_user_name(screen, wood_texture):
         screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
         pygame.draw.rect(screen, color, input_box, 2)
         pygame.display.flip()
+def difficulty_screen(screen, wood_texture):
+    # Define button properties
+    button_font = pygame.font.Font(None, 20)
+    button_width, button_height = 100, 30
+    easy_button_rect = pygame.Rect((screen.get_width() // 2 - 160, screen.get_height() // 2 + 30), (button_width, button_height))
+    medium_button_rect = pygame.Rect((screen.get_width() // 2 - 50, screen.get_height() // 2 + 30), (button_width, button_height))
+    hard_button_rect = pygame.Rect((screen.get_width() // 2 + 60, screen.get_height() // 2 + 30), (button_width, button_height))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if easy_button_rect.collidepoint(event.pos):
+                    return easy_speed_fraction # Easy speed
+                if medium_button_rect.collidepoint(event.pos):
+                    return medium_speed_fraction  # Medium speed
+                if hard_button_rect.collidepoint(event.pos):
+                    return hard_speed_fraction  # Hard speed
+
+        draw_grass(screen)
+        draw_brick_fencing(screen, brick_size, shadow_color, brick_color)
+        draw_wooden_board(screen, wood_texture, "SELECT DIFFICULTY", (255, 0, 0))
+
+        # Draw buttons
+        pygame.draw.rect(screen, (0, 255, 0), easy_button_rect)
+        pygame.draw.rect(screen, (255, 255, 0), medium_button_rect)
+        pygame.draw.rect(screen, (255, 0, 0), hard_button_rect)
+
+        # Draw button text
+        easy_text = button_font.render("Easy", True, (0, 0, 0))
+        medium_text = button_font.render("Medium", True, (0, 0, 0))
+        hard_text = button_font.render("Difficult", True, (0, 0, 0))
+
+        screen.blit(easy_text, easy_button_rect.move(50, 15))
+        screen.blit(medium_text, medium_button_rect.move(40, 15))
+        screen.blit(hard_text, hard_button_rect.move(35, 15))
+
+        pygame.display.flip()
+
 
 def draw_buttons(screen, button_continue, button_quit):
     pygame.draw.rect(screen, (0, 255, 0), button_continue)

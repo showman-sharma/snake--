@@ -10,7 +10,7 @@ def spawn_mole(screen_width, screen_height, brick_size, moles, holes):
     holes.append((x, y))
     mole_squeak_sound.play()  # Play mole squeak sound when a mole is spawned
 
-def move_moles(moles, foodx, foody, holes, new_apple_position_callback):
+def move_moles(moles, foodx, foody, holes, new_apple_position_callback, mole_speed = mole_speed_full):
     for mole in moles:
         # if mole['target'] is None:
         #     mole['target'] = (foodx, foody)
